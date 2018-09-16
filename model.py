@@ -11,8 +11,10 @@ class Game(db.Model):
     name = db.Column(db.String(20), nullable=False, unique=True)
     description = db.Column(db.String(100))
 
+    # if session[]
 
-def connect_to_db(app, db_uri="postgresql:///testdb"):
+
+def connect_to_db(app, db_uri="postgresql:///games"):
     app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
     db.app = app
     db.init_app(app)
@@ -25,9 +27,9 @@ def example_data():
 
     Game.query.delete()
 
-    game1 = Game(1, 'Monopoly', 'Monopoly description')
-    game2 = Game(2, 'Snakes and Ladders', 'Snakes and Ladders description')
-    game3 = Game(3, 'Checkers', 'Checkers description')
+    game1 = Game(name='Monopoly', description='Monopoly description')
+    game2 = Game(name='Snakes and Ladders', description='Snakes and Ladders description')
+    game3 = Game(name='Checkers', description='Checkers description')
 
     db.session.add_all([game1, game2, game3])
     db.session.commit()
